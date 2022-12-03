@@ -8,7 +8,7 @@ public struct OpenGraph {
     /// The type of your object, e.g., "video.movie". Depending on the type you specify, other properties may also be required.
     public let type: OpenGraphType
     /// An image URL which should represent your object within the graph.
-    public let image: OpenGraphImage
+    public let image: OpenGraphImage?
     /// The canonical URL of your object that will be used as its permanent ID in the graph, e.g., "https://www.imdb.com/title/tt0117500/".
     public let url: String
     
@@ -129,7 +129,8 @@ public struct OpenGraph {
             }
             
             // Make sure the first image exists
-            guard let firstImage = images.removeFirstIfExists() else { return nil }
+//            guard let firstImage = images.removeFirstIfExists() else { return nil }
+            let firstImage = images.removeFirstIfExists()
             
             // Decode the type from the given properties
             let type = OpenGraphType(kVPs: parsed)
