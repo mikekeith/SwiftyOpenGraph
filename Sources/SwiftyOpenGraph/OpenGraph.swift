@@ -68,10 +68,10 @@ public struct OpenGraph {
                     return nil
                 }
         
-        self.init(html: html)
+        self.init(html: html, originalURL: url)
     }
     
-    public init?(html: String)  {
+    public init?(html: String, originalURL: String?)  {
         do {
             let doc: Document = try SwiftSoup.parse(html)
             
@@ -90,10 +90,10 @@ public struct OpenGraph {
             // Find required single values title and url
             guard
                 let title = getFirstValue(for: Constants.titleProperty),
-                let url = getFirstValue(for: Constants.urlProperty) else {
+                let url = getFirstValue(for: Constants.urlProperty) ?? originalURL else {
                     return nil
                 }
-            
+                        
             // Find images
             var images: [OpenGraphImage] = []
             var audios: [OpenGraphAudio] = []
